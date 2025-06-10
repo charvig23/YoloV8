@@ -49,7 +49,7 @@ else:
     metadata = []
 
 # Start video stream (IP Webcam or MJPEG source)
-cap = cv2.VideoCapture("http://[2405:201:4003:4085:4075:58ff:fe83:8c89]:8080/video")
+cap = cv2.VideoCapture("http://[2405:201:4003:4085:8b7d:19a5:bb52:44d6]:8080/video")
 
 if not cap.isOpened():
     raise RuntimeError("❌ Could not open video stream. Check the IP or port.")
