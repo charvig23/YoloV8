@@ -51,7 +51,12 @@ if os.path.exists(metadata_path):
 else:
     metadata = []
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("http://192.168.29.7:8080/video")
+ret, frame = cap.read()
+if not ret or frame is None:
+    print("Failed to capture video frame. Check IP address and connection.")
+    exit()
+
 while True:
     ret, frame = cap.read()
     results = yolo_model(frame)
