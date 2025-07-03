@@ -70,6 +70,9 @@ sock.bind((UDP_IP, UDP_PORT))
 print(f"[INFO] Listening for UDP video stream on port {UDP_PORT}...")
 
 # -------- Frame Receive Loop --------
+log_file_path = "detected_objects_log.txt"
+with open(log_file_path, "w") as f:
+    f.write("Class\tX\tY\tDistance(m)\n")
 try:
     while True:
         packet, _ = sock.recvfrom(65536)
@@ -102,7 +105,8 @@ try:
                     'position': (x_center, y_center),
                     'distance': distance_estimate
                 })
-
+                with open(log_file_path, "a") as f:
+                    f.write(f"{class_name}\t{x_center}\t{y_center}\t{distance_estimate:.2f}\n")
                 print(f"Object: {class_name}, Pos: {(x_center, y_center)}, Distance: {distance_estimate:.2f}")
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.putText(frame, class_name, (x1, y1 - 10),
